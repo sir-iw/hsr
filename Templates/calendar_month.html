@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+</head>
+<body>
+<h1>Calendar</h1>
+<h2>{{ date }}</h2>
+
+{% for key,value in warps_month.iterrows() %}
+      <option value="{{ value['id'] }}">{{loop.index}} {{ value['entity'] }}</option>
+{% endfor %}
+
+<div>
+
+    <div id="month story"></div>
+</div>
+<script>
+    var warps_month_js = {{ warps_month_js|tojson }};
+    var sum = Object.keys(warps_month_js.warp).length
+    warps_month_js = JSON.parse(warps_month_js);
+    console.log(warps_month_js);
+    console.log(typeof warps_month_js);
+    console.log(warps_month_js.warp);
+    console.log(typeof warps_month_js.warp);
+    console.log(Object.keys(warps_month_js.warp).length);
+
+</script>
+
+</body>
+</html>

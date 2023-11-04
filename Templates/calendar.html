@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+</head>
+<body>
+<h1>Calendar</h1>
+
+<div>
+    <h3></h3>
+    <div id="calendar"></div>
+</div>
+
+
+<script>
+
+    var months = ["", "January", "February", "March", "April", "May", "June",
+           "July", "August", "September", "October", "November", "December" ];
+
+    var year_month = {{ year_month|tojson }}
+    //year_month = year_month.reverse();
+
+    console.log(year_month)
+
+
+    var svg = d3.select("#calendar")
+        .append("svg");
+
+
+    svg.select("#calendar")
+        .data(year_month)
+        .enter()
+        .append("div")
+            .attr("id", "monthBlock")
+            //.text(function(d){ return d })
+            .style('width', "400px")
+            .style('height', "300px")
+            .style('background-color', "powderblue")
+            .style('position','absolute')
+
+            .style('top', function(d, i) {return ((Math.ceil(((i+1)/3))-1)*400 + 100 + "px")})
+            .style('left', function(d, i) {return ((i%3)*550 + 100 + "px")})
+            .append("svg")
+                .attr("id", "monthBlockSVG")
+                .attr("width", "400px")
+                .attr("height", "300px")
+                .attr('onclick', function(d){ return "location.href = 'calendar-" +  d + "'"})
+    ;
+   // d3.selectAll("#monthBlock")
+     //   .append("svg")
+     //   .append("rect")
+     //   .attr('x', "10px")
+     //   .attr('y', "10px")
+     //   .attr('width', "300px")
+     //   .attr('height', "300px")
+     //   .attr("z-index", 3)
+     //   .attr("fill", "black");
+
+    d3.selectAll("#monthBlockSVG")
+        .append("text")
+        .attr('x', '10px')
+        .attr('y', '20px')
+        .text(function(d){ return d.slice(0, 4) });
+
+
+    d3.selectAll("#monthBlockSVG")
+        .append("text")
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .attr('text-anchor', 'middle')
+        .text(function(d){
+            console.log(d.slice(5, 7))
+            console.log(months[parseInt(d.slice(5, 7))])
+            return months[parseInt(d.slice(5, 7))] });
+
+
+    svg.append("text")
+        .attr('x', 180)
+        .attr('y', 180)
+        .text("KEKEK");
+
+
+</script>
+
+
+
+</body>
+</html>
